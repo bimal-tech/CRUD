@@ -4,6 +4,6 @@ from django.db import models
 
 
 class operation(models.Model):
-    sn = models.IntegerField()
+    rn = models.IntegerField()
     username = models.CharField(max_length=64, null=True, default="none")
     age = models.IntegerField()

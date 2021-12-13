@@ -17,20 +17,20 @@
         <br><br>
         <table class="table table-striped">
             <tr>
-                <th>Sn</th>
+                <th>Roll No.</th>
                 <th>Name</th>
                 <th>Age</th>
                 <th>Operations</th>
             </tr>
             {% for data in datas %}
             <tr>
-                <td>{{data.sn}}</td>
+                <td>{{data.rn}}</td>
                 <td>{{data.username}}</td>
                 <td>{{data.age}}</td>
                 <td>
-                    <input type="submit" value="Edit" class="btn btn-primary" >
-                    <input type="submit" value="Delete" class="btn btn-danger">
-                </td>
+                    <a class="btn btn-primary" href="{% url 'edit' data.id %}" >Edit</a>
+                    <a class="btn btn-danger" href="{% url 'delete' data.id %}" >Delete</a>
+                </td> 
             </tr>
             {% endfor %}
         </table>
