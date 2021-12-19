@@ -25,25 +25,38 @@ def apiOverview(request):
 
 @api_view(['GET'])
 def all_detail(request):
-    pass
+    datas = operation.objects.all()
+    serializer = operationSerializer(datas, many=True)
+    return Response(serializer.data)
 
 
-
-@api_view(['GET'])
+@api_view(['POST'])
 def add_details(request):
-    pass
+    serializer = operationSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def edit(request, pk):
+    datas = operation.objects.get(id=pk)
+    serializer = operationSerializer(instance=datas, data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+
+
+@api_view(['DELETE'])
+def delete(request, pk):
+    datas = operation.objects.get(id=pk)
+    datas.delete()
+    msg = "The item " + str(pk) + " is deleted"
+    return Response(msg)
 
 
 @api_view(['GET'])
-def edit(request):
-    pass
-
-
-@api_view(['GET'])
-def delete(request):
-    pass
-
-
-@api_view(['GET'])
-def details(request):
-    pass
+def details(request, pk):
+    datas = operation.objects.get(id=pk)
+    serializer = operationSerializer(datas, many=False)
+    return Response(serializer.data)
