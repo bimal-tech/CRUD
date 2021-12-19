@@ -1,45 +1,49 @@
+from django.http.response import JsonResponse
 from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404
 from .models import *
+from .serializers import operationSerializer
+
+# REST Frameworks
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+
 # Create your views here.
+@api_view(['GET'])
+def apiOverview(request):
+    api_urls = {
+        'List': '/all_detail',
+        'detail view': '/details/<str:pk>',
+        'create': '/add-details/',
+        'update': '/edit/<str:pk>/',
+        'delete': '/delete/<str:pk>'
+    }
+    return Response(api_urls)
 
 
-def index(request):
-    datas = operation.objects.all()
-    return render(request, "crud_templates/index.html", {
-        "datas": datas
-    })
+@api_view(['GET'])
+def all_detail(request):
+    pass
 
 
+
+@api_view(['GET'])
 def add_details(request):
-    if request.method == "POST":
-        item = operation()
-        item.rn = request.POST.get('rn')
-        item.username = request.POST.get('username')
-        item.age = request.POST.get('age')
-        # print(item.sn)
-        # print(item.username)
-        # print(item.age)
-        # item.sn = str(len(operation.objects.all())+1)
-        item.save()
-        return redirect('/')
-
-    return render(request, "crud_templates/add_detail.html")
+    pass
 
 
-def edit(request, pk):
-    print("pressed edit")
-    datas = operation.objects.get(pk=pk)
-    operation.objects.get(pk=pk).delete()
-    return render(request, "crud_templates/edit.html", {
-        "datas": datas
-    })
-    # return render(request, "crud_templates/index.html")
+@api_view(['GET'])
+def edit(request):
+    pass
 
 
-def delete(request, pk):
-    print("pressed delete")
-    operation.objects.get(pk=pk).delete()
-    datas = operation.objects.all()
-    return render(request, "crud_templates/index.html", {
-        "datas": datas
-    })
+@api_view(['GET'])
+def delete(request):
+    pass
+
+
+@api_view(['GET'])
+def details(request):
+    pass
