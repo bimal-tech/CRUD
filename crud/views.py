@@ -45,6 +45,7 @@ def edit(request, pk):
 
     if serializer.is_valid():
         serializer.save()
+    return Response(serializer.data)
 
 
 @api_view(['DELETE'])
